@@ -36,7 +36,11 @@ var listaStudenti = [
     'cognome': "Verdi",
     'eta': 31
   }
-]
+];
+
+// handlebars
+var source = $("#studente-template").html();
+var template = Handlebars.compile(source);
 
 // stampo in console la lista iniziale
 console.log("LISTA INIZIALE");
@@ -89,8 +93,8 @@ for (var i = 0; i < listaStudenti.length; i++) {
 
 for (var i = 0; i < listaStudenti.length; i++) {
   var studente = listaStudenti[i];
-  $(".container").append("<div class='studente'>Studente " + (i+1) + "</div>");
-  for (var key in studente) {
-    $(".studente").last().append("<p>" + key + ": " + studente[key] + "</p>");
-  }
+  var context = {number: (i+1), name: studente.nome, surname: studente.cognome, age: studente.eta };
+  var html = template(context);
+
+  $(".container").append(html);
 }
