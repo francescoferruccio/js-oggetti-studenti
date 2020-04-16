@@ -18,7 +18,7 @@ $(document).ready(function()
   // }
 
   // VARIABILI GLOBALI
-  var indice;
+  var totStudenti;
 
   // inizializzazione handlebars
   var source = $("#studente-template").html();
@@ -26,6 +26,26 @@ $(document).ready(function()
 
   // creo un array di oggetti "studente"
   var listaStudenti = [
+    {
+      'nome': "Mario",
+      'cognome': "Rossi",
+      'eta': 18
+    },
+    {
+      'nome': "John",
+      'cognome': "Doe",
+      'eta': 19
+    },
+    {
+      'nome': "Aldo",
+      'cognome': "Baglio",
+      'eta': 22
+    },
+    {
+      'nome': "Giuseppe",
+      'cognome': "Verdi",
+      'eta': 31
+    },
     {
       'nome': "Mario",
       'cognome': "Rossi",
@@ -68,7 +88,7 @@ $(document).ready(function()
     $(".container").append(html);
   }
 
-  indice = i+1;
+  totStudenti = i+1;
 
   // inserimento dinamico nuovi studenti al click sul bottone
   $("button").click(insertStudent);
@@ -102,11 +122,11 @@ $(document).ready(function()
 
       listaStudenti.push(inputObj);
 
-      var context = {number: indice, name: inputObj.nome, surname: inputObj.cognome, age: inputObj.eta };
+      var context = {number: totStudenti, name: inputObj.nome, surname: inputObj.cognome, age: inputObj.eta };
       var html = template(context);
 
       $(".container").append(html);
-      indice++;
+      totStudenti++;
 
       // svuoto i campi di input
       $("input[name='nome']").val("");
