@@ -67,22 +67,39 @@ for (var i = 0; i < listaStudenti.length; i++) {
 
 indice = i+1;
 
-// inserimento dinamico nuovi studenti
-$("button").click(
-  function () {
-    var inputNome = $("input[name='nome']").val();
-    var inputCognome = $("input[name='cognome']").val();
-    var inputEta = $("input[name='eta']").val();
+// inserimento dinamico nuovi studenti al click sul bottone
+$("button").click(insertStudent);
 
-    $("input[name='nome']").val("");
-    $("input[name='cognome']").val("");
-    $("input[name='eta']").val("");
+// inserimento dinamico nuovi studenti premendo invio quando sono in uno dei campi di input
+$("input").focusin().keyup(
+  function (event) {
+    if(event.which == 13) {
+      insertStudent();
+    }
+  }
+)
 
+
+// DICHIARAZIONE FUNZIONI
+
+// funzione che inserisce il nuovo studente nell'array e lo stampa in pagina
+function insertStudent() {
+  var inputNome = $("input[name='nome']").val();
+  var inputCognome = $("input[name='cognome']").val();
+  var inputEta = $("input[name='eta']").val();
+
+  // svuoto i campi di input
+  $("input[name='nome']").val("");
+  $("input[name='cognome']").val("");
+  $("input[name='eta']").val("");
+
+  // controllo che i dati inseriti siano corretti
+  if (inputNome != "" && inputCognome != "" && inputEta != "" && !isNaN(inputEta)) {
     // creo un nuovo oggetto "studente" con i dati inseriti dall'utente
     var inputObj = {
       'nome': inputNome,
       'cognome': inputCognome,
-      'eta': inputEta
+      'eta': parseInt(inputEta)
     }
 
     listaStudenti.push(inputObj);
@@ -92,5 +109,10 @@ $("button").click(
 
     $(".container").append(html);
     indice++;
+
+    console.log("Array aggiornato", listaStudenti);
+  } else {
+    alert("Controlla i dati inseriti");
   }
-);
+
+}
