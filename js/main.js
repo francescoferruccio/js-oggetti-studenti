@@ -53,7 +53,7 @@ var inputCognome = prompt("Inserisci cognome");
 var inputEta;
 do {
   inputEta = prompt("Inserisci eta");
-  if (!isNaN(inputEta)) {
+  if (!isNaN(inputEta) && inputEta != "") {
     etaValida = true;
   } else {
     alert("Inserisci un'età valida!");

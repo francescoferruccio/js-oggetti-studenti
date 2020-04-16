@@ -14,6 +14,13 @@
 //   console.log(key + ": " + stud[key]);
 // }
 
+// VARIABILI GLOBALI
+var indice;
+
+// inizializzazione handlebars
+var source = $("#studente-template").html();
+var template = Handlebars.compile(source);
+
 // creo un array di oggetti "studente"
 var listaStudenti = [
   {
@@ -38,10 +45,6 @@ var listaStudenti = [
   }
 ];
 
-// handlebars
-var source = $("#studente-template").html();
-var template = Handlebars.compile(source);
-
 // stampo in console la lista iniziale
 console.log("LISTA INIZIALE");
 
@@ -52,43 +55,6 @@ for (var i = 0; i < listaStudenti.length; i++) {
   }
 }
 
-var etaValida = false;
-
-// chiedo all'utente di inserire i dati del nuovo studente e li memorizzo
-var inputNome = prompt("Inserisci nome");
-var inputCognome = prompt("Inserisci cognome");
-var inputEta;
-// chiedo all'utente di inserire l'età e controllo che sia un numero
-do {
-  inputEta = prompt("Inserisci eta");
-  if (!isNaN(inputEta)) {
-    etaValida = true;
-  } else {
-    alert("Inserisci un'età valida!");
-  }
-} while (etaValida == false);
-
-// creo un nuovo oggetto "studente" con i dati inseriti dall'utente
-var inputObj = {
-  'nome': inputNome,
-  'cognome': inputCognome,
-  'eta': inputEta
-}
-
-// inserisco il nuovo oggetto nella lista
-listaStudenti.push(inputObj);
-
-// stampo in console la lista aggiornata
-console.log("LISTA DOPO INSERIMENTO UTENTE");
-
-for (var i = 0; i < listaStudenti.length; i++) {
-  var studente = listaStudenti[i];
-  for (var key in studente) {
-    console.log(key + ": " + studente[key]);
-  }
-}
-
-
 // Stampo in pagina
 
 for (var i = 0; i < listaStudenti.length; i++) {
@@ -98,3 +64,33 @@ for (var i = 0; i < listaStudenti.length; i++) {
 
   $(".container").append(html);
 }
+
+indice = i+1;
+
+// inserimento dinamico nuovi studenti
+$("button").click(
+  function () {
+    var inputNome = $("input[name='nome']").val();
+    var inputCognome = $("input[name='cognome']").val();
+    var inputEta = $("input[name='eta']").val();
+
+    $("input[name='nome']").val("");
+    $("input[name='cognome']").val("");
+    $("input[name='eta']").val("");
+
+    // creo un nuovo oggetto "studente" con i dati inseriti dall'utente
+    var inputObj = {
+      'nome': inputNome,
+      'cognome': inputCognome,
+      'eta': inputEta
+    }
+
+    listaStudenti.push(inputObj);
+
+    var context = {number: indice, name: inputObj.nome, surname: inputObj.cognome, age: inputObj.eta };
+    var html = template(context);
+
+    $(".container").append(html);
+    indice++;
+  }
+);
