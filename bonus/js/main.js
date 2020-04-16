@@ -45,26 +45,6 @@ $(document).ready(function()
       'nome': "Giuseppe",
       'cognome': "Verdi",
       'eta': 31
-    },
-    {
-      'nome': "Mario",
-      'cognome': "Rossi",
-      'eta': 18
-    },
-    {
-      'nome': "John",
-      'cognome': "Doe",
-      'eta': 19
-    },
-    {
-      'nome': "Aldo",
-      'cognome': "Baglio",
-      'eta': 22
-    },
-    {
-      'nome': "Giuseppe",
-      'cognome': "Verdi",
-      'eta': 31
     }
   ];
 
